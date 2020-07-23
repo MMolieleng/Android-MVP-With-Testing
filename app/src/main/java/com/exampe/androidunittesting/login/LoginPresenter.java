@@ -1,6 +1,6 @@
 package com.exampe.androidunittesting.login;
 
-class LoginPresenter {
+public class LoginPresenter {
 
     private final LoginView view;
     private final LoginModel model;
@@ -10,12 +10,19 @@ class LoginPresenter {
         this.model = model;
     }
 
-    public void updateUserEmail(String userInput) {
-        this.model.setEmail(userInput);
+    public void updateUserEmail(String emailInput) {
+        if (emailInput == null || emailInput.isEmpty()) {
+            view.showEmailError();
+        } else {
+            this.model.setEmail(emailInput);
+        }
     }
 
     public void updatePassword(String passwordInput) {
-        this.model.setPassword(passwordInput);
+        if (passwordInput == null || passwordInput.isEmpty()) {
+            view.showPasswordError();
+        } else {
+            this.model.setPassword(passwordInput);
+        }
     }
-
 }

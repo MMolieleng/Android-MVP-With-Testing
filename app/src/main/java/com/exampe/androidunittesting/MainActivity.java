@@ -22,4 +22,19 @@ public class MainActivity extends AppCompatActivity implements LoginView {
     public void renderLoadingState() {
 
     }
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    @Override
+    public void showEmailError() {
+
+    }
+
+    @Override
+    public void showPasswordError() {
+
+    }
 }
