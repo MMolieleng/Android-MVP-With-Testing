@@ -7,6 +7,8 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 public class LoginPresenterTest {
 
@@ -23,30 +25,39 @@ public class LoginPresenterTest {
 
     @After
     public void tearDown() throws Exception {
+        presenter = null;
     }
 
     @Test
     public void updateUserEmail_with_bad_data_must_render_showEmailError() {
         presenter.updateUserEmail(null);
-        Mockito.verify(viewMock, times(1)).showEmailError();
+        verify(viewMock, times(1)).showEmailError();
 
         presenter.updateUserEmail(" ");
-        Mockito.verify(viewMock, times(1)).showEmailError();
+        verify(viewMock, times(1)).showEmailError();
     }
 
     @Test
     public void updateEmail_with_correct_email_must_update_userEmail() {
         presenter.updateUserEmail("doe@gmail.com");
-        Mockito.verifyNoInteractions(viewMock);
-        Mockito.verify(userMock).setEmail("doe@gmail.com");
+        verifyNoInteractions(viewMock);
+        verify(userMock).setEmail("doe@gmail.com");
     }
 
     @Test
     public void updatePassword_with_bad_data_must_render_error() {
         presenter.updatePassword(null);
-        Mockito.verify(viewMock, times(1)).showEmailError();
+        verify(viewMock, times(1)).showPasswordError();
 
         presenter.updatePassword(" ");
-        Mockito.verify(viewMock, times(1)).showEmailError();
+        verify(viewMock, times(1)).showPasswordError();
+    }
+
+    @Test
+    public void updatePassword_with_valid_data_must_setPassword() {
+        presenter.updatePassword("password");
+
+        verifyNoInteractions(viewMock);
+        verify(userMock).setPassword("password");
     }
 }
